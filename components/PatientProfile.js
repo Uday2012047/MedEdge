@@ -13,6 +13,7 @@ function PatientProfile() {
   const [address, setAddress] = useState();
   const [bloodgroup, setBloodgroup] = useState();
   const [pincode, setPincode] = useState();
+  const [gender, setGender] = useState();
 
   const fetchData = () => {
     const url = `http://localhost:3000/api/getpatientprofile/?email=${emailt}`;
@@ -23,6 +24,7 @@ function PatientProfile() {
         setAddress(response.data.address)
         setBloodgroup(response.data.bloodgroup)
         setPincode(response.data.pincode)
+        setGender(response.data.gender)
       });
   }
   useEffect(() => {
@@ -36,7 +38,7 @@ function PatientProfile() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, address, age, pincode, bloodgroup }),
+      body: JSON.stringify({ email, address, age, pincode, bloodgroup, gender }),
     });
     Router.reload();
   };
@@ -59,7 +61,7 @@ function PatientProfile() {
     <label>
       Pincode
       <input
-        name="age"
+        name="pincode"
         type="text"
         value={pincode}
         onChange={(e) => setPincode(e.target.value)}
@@ -68,19 +70,28 @@ function PatientProfile() {
     <label>
       Address
       <input
-        name="age"
+        name="address"
         type="text"
-        value={age}
+        value={address}
         onChange={(e) => setAddress(e.target.value)}
       />
     </label>
     <label>
       Blood Group
       <input
-        name="age"
+        name="bloodgroup"
         type="text"
         value={bloodgroup}
         onChange={(e) => setBloodgroup(e.target.value)}
+      />
+    </label>
+    <label>
+      Gender
+      <input
+        name="gender"
+        type="text"
+        value={gender}
+        onChange={(e) => setGender(e.target.value)}
       />
     </label>
     <button type="submit" onClick={(e) => updateProfile(e)}>Submit</button>

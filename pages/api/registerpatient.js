@@ -29,6 +29,7 @@ export default async function handler(req, res) {
     address: "",
     pincode: 0,
     profilephoto: "",
+    gender: "",
     age: 0,
     bloodgroup: "",
   });

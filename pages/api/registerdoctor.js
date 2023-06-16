@@ -27,9 +27,10 @@ export default async function handler(req, res) {
     phone: body.phone,
     role: body.role,
     address: "",
+    sex: "",
     pincode: 0,
     profilephoto: "",
-    age: 0,
+    experience: 1,
     doctorid: "",
   });
   await user.save();

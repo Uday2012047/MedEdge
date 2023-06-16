@@ -25,8 +25,11 @@ const profileSchema = new mongoose.Schema(
     profilephoto: {
       type: String,
     },
-    age:{
+    age: {
       type: Number,
+    },
+    gender: {
+      type: String,
     },
     bloodgroup: {
       type: String,
