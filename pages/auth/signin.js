@@ -10,7 +10,19 @@ export default function SignIn({ csrfToken }) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState("");
+  const [otp, setOtp] = useState(true);
+  const [otptext, setOtptext] = useState();
+  const [enteredotp, setEnteredotp] = useState();
   const [message, setMessage] = useState(null);
+
+  function generateOTP() {
+    var minm = 100000;
+    var maxm = 999999;
+    return Math.floor(Math
+      .random() * (maxm - minm + 1)) + minm;
+  }
+
+
   const signinUser = async (e) => {
     e.preventDefault();
     let options = {
@@ -33,6 +45,10 @@ export default function SignIn({ csrfToken }) {
   };
   const signupPatient = async (e) => {
     e.preventDefault();
+    if (otptext != enteredotp) {
+      setMessage("Wrong OTP");
+      return;
+    }
     setMessage(null);
     const res = await fetch("/api/registerpatient", {
       method: "POST",
@@ -70,6 +86,7 @@ export default function SignIn({ csrfToken }) {
   const signupDoctor = async (e) => {
     e.preventDefault();
     setMessage(null);
+
     const res = await fetch("/api/registerdoctor", {
       method: "POST",
       headers: {
@@ -137,6 +154,25 @@ export default function SignIn({ csrfToken }) {
       return Router.push("/");
     }
   };
+  const sendotp = async (e) => {
+    const otpnum = generateOTP();
+    const number = "91" + phone
+    const chatid = `${number}@c.us`
+    const msg = `Your OTP is ${otpnum}`
+    const res = await fetch("https://api.green-api.com/waInstance7103832087/sendMessage/9037e1378e404f429d9b24934c7282c7786a8e8a0ef14ee294", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        chatId: chatid,
+        message: msg,
+      }),
+    });
+    console.log(otpnum);
+    setOtptext(otpnum);
+    setOtp(false);
+  }
   return (
     // method="post" action="/api/auth/callback/credentials"
     <>
@@ -207,11 +243,24 @@ export default function SignIn({ csrfToken }) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <p style={{ color: "red" }}>{message}</p>
-        <button type="submit" onClick={(e) => signupPatient(e)}>
+        <button disabled={otp} type="submit" onClick={(e) => signupPatient(e)}>
           Register as a Patient
         </button>
+        <p style={{ color: "red" }}>{message}</p>
       </form>
+      <br />
+      <button onClick={(e) => sendotp(e)}>
+        Send OTP
+      </button>
+      <label>
+        OTP
+        <input
+          disabled={otp}
+          name="otp"
+          type="password"
+          onChange={(e) => setEnteredotp(e.target.value)}
+        />
+      </label>
       {/* Register as a Doctor */}
       <form>
         <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
