@@ -19,6 +19,7 @@ const profileSchema = new mongoose.Schema(
     pincode: {
       type: Number,
     },
+
   },
   { timestamps: true }
 );

@@ -85,6 +85,10 @@ export default function SignIn({ csrfToken }) {
   };
   const signupDoctor = async (e) => {
     e.preventDefault();
+    if (otptext != enteredotp) {
+      setMessage("Wrong OTP");
+      return;
+    }
     setMessage(null);
 
     const res = await fetch("/api/registerdoctor", {
@@ -173,6 +177,7 @@ export default function SignIn({ csrfToken }) {
     setOtptext(otpnum);
     setOtp(false);
   }
+
   return (
     // method="post" action="/api/auth/callback/credentials"
     <>
@@ -304,6 +309,19 @@ export default function SignIn({ csrfToken }) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
+        <br />
+        <button onClick={(e) => sendotp(e)}>
+          Send OTP
+        </button>
+        <label>
+          OTP
+          <input
+            disabled={otp}
+            name="otp"
+            type="password"
+            onChange={(e) => setEnteredotp(e.target.value)}
+          />
+        </label>
         <p style={{ color: "red" }}>{message}</p>
         <button type="submit" onClick={(e) => signupDoctor(e)}>
           Register as a Doctor
@@ -321,7 +339,7 @@ export default function SignIn({ csrfToken }) {
           />
         </label>
         <label>
-          First Name
+          Laboratory Name
           <input
             name="name"
             type="text"
@@ -342,6 +360,19 @@ export default function SignIn({ csrfToken }) {
             name="password"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <br />
+        <button onClick={(e) => sendotp(e)}>
+          Send OTP
+        </button>
+        <label>
+          OTP
+          <input
+            disabled={otp}
+            name="otp"
+            type="password"
+            onChange={(e) => setEnteredotp(e.target.value)}
           />
         </label>
         <p style={{ color: "red" }}>{message}</p>

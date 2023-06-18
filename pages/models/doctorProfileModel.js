@@ -10,6 +10,9 @@ const profileSchema = new mongoose.Schema(
     lastname: {
       type: String,
     },
+    age: {
+      type: Number,
+    },
     role: {
       type: String,
     },
