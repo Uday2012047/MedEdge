@@ -39,7 +39,7 @@ export default function Home() {
         {/* right */}
         <div className="flex items-center m-4">
           <div className="pr-4 pl-4">
-            <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => signIn()} >Sign in/Sign Up</button>
+            <button className="bg-green-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded" onClick={() => signIn()} >Sign in/Sign Up</button>
           </div>
 
           <div className=" flex pr-3 pl-3">
@@ -64,7 +64,8 @@ export default function Home() {
           <div class="text-white text-center">
             <p class="text-2xl font-bold">WELCOME TO MEDEDGE</p>
             <p class="text-lg p-6">Additional paragraph content</p>
-            <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => signIn()} >Sign in/Sign Up</button>
+            <button class="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xl font-medium  leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-gradient-to-r from-gray-500 from-10% via-blue-400 via-30% to-emerald-500 to-90% hover:bg-opacity-10  hover:text-black focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+              onClick={() => signIn()} >Sign in/Sign Up</button>
           </div>
 
         </div>
