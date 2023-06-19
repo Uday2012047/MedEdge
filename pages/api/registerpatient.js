@@ -3,7 +3,7 @@ import Patientprofiles from "../models/patientProfileModel";
 import bcrypt from "bcrypt";
 export default async function handler(req, res) {
   const body = req.body;
-  const userExists = await Users.findOne({ email: body.email });
+  const userExists = await Users.findOne({ phone: body.phone });
   if (userExists) {
     res.status(200).json({ message: "Already registered" });
     return;

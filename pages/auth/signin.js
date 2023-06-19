@@ -378,24 +378,24 @@ export default function SignIn({ csrfToken }) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <br />
-        <button onClick={(e) => sendotp(e)}>
-          Send OTP
-        </button>
-        <label>
-          OTP
-          <input
-            disabled={otp}
-            name="otp"
-            type="password"
-            onChange={(e) => setEnteredotp(e.target.value)}
-          />
-        </label>
         <p style={{ color: "red" }}>{message}</p>
         <button type="submit" onClick={(e) => signupDoctor(e)}>
           Register as a Doctor
         </button>
       </form>
+      <br />
+      <button onClick={(e) => sendotp(e)}>
+        Send OTP
+      </button>
+      <label>
+        OTP
+        <input
+          disabled={otp}
+          name="otp"
+          type="password"
+          onChange={(e) => setEnteredotp(e.target.value)}
+        />
+      </label>
       {/* Register as a Lab */}
       <form>
         <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
@@ -431,24 +431,24 @@ export default function SignIn({ csrfToken }) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <br />
-        <button onClick={(e) => sendotp(e)}>
-          Send OTP
-        </button>
-        <label>
-          OTP
-          <input
-            disabled={otp}
-            name="otp"
-            type="password"
-            onChange={(e) => setEnteredotp(e.target.value)}
-          />
-        </label>
         <p style={{ color: "red" }}>{message}</p>
         <button type="submit" onClick={(e) => signupLab(e)}>
           Register as a Lab
         </button>
       </form>
+      <br />
+      <button onClick={(e) => sendotp(e)}>
+        Send OTP
+      </button>
+      <label>
+        OTP
+        <input
+          disabled={otp}
+          name="otp"
+          type="password"
+          onChange={(e) => setEnteredotp(e.target.value)}
+        />
+      </label>
     </>
   );
 }
