@@ -1,7 +1,13 @@
 import { getCsrfToken, signIn } from "next-auth/react";
 import Router from "next/router";
 import { useState } from "react";
-
+import {
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from "@material-tailwind/react";
 export default function SignIn({ csrfToken }) {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -181,274 +187,234 @@ export default function SignIn({ csrfToken }) {
   return (
     // method="post" action="/api/auth/callback/credentials"
     <>
-      {/* Sign In */}
-      <section className="gradient-form h-full bg-neutral-200 dark:bg-neutral-700" >
+      <Tabs value="html">
+        <TabsHeader>
+          <Tab value="signin">
+            Sign In
+          </Tab>
+          <Tab value="patientregister">
+            Register Patient
+          </Tab>
+          <Tab value="doctorregister">
+            Register Doctor
+          </Tab>
+          <Tab value="labregister">
+            Register Lab
+          </Tab>
+        </TabsHeader>
+        <TabsBody>
+          <TabPanel value="signin">
+            {/* Sign In */}
+            <form>
+              <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+              <label>
+                Email
+                <input
+                  name="email"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </label>
+              <label>
+                Password
+                <input
+                  name="password"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </label>
+              <p style={{ color: "red" }}>{message}</p>
+              <button type="submit" onClick={(e) => signinUser(e)}>
+                Sign in
+              </button>
+            </form>
+          </TabPanel>
+          <TabPanel value="patientregister">
+            {/* Register as a Patient */}
+            <form>
+              <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+              <label>
+                Email
+                <input
+                  name="email"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </label>
+              <label>
+                First Name
+                <input
+                  name="firstname"
+                  type="text"
+                  onChange={(e) => setFirstname(e.target.value)}
+                />
+              </label>
+              <label>
+                Last Name
+                <input
+                  name="lastname"
+                  type="text"
+                  onChange={(e) => setLastname(e.target.value)}
+                />
+              </label>
+              <label>
+                Phone Number
+                <input
+                  name="phone"
+                  type="text"
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </label>
+              <label>
+                Password
+                <input
+                  name="password"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </label>
+              <button disabled={otp} type="submit" onClick={(e) => signupPatient(e)}>
+                Register as a Patient
+              </button>
+              <p style={{ color: "red" }}>{message}</p>
+            </form>
+            <br />
+            <button onClick={(e) => sendotp(e)}>
+              Send OTP
+            </button>
+            <label>
+              OTP
+              <input
+                disabled={otp}
+                name="otp"
+                type="password"
+                onChange={(e) => setEnteredotp(e.target.value)}
+              />
+            </label>
+          </TabPanel>
+          <TabPanel value="doctorregister">
+            {/* Register as a Doctor */}
+            <form>
+              <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+              <label>
+                Email
+                <input
+                  name="email"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </label>
+              <label>
+                First Name
+                <input
+                  name="firstname"
+                  type="text"
+                  onChange={(e) => setFirstname(e.target.value)}
+                />
+              </label>
+              <label>
+                Last Name
+                <input
+                  name="lastname"
+                  type="text"
+                  onChange={(e) => setLastname(e.target.value)}
+                />
+              </label>
+              <label>
+                Phone Number
+                <input
+                  name="phone"
+                  type="text"
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </label>
+              <label>
+                Password
+                <input
+                  name="password"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </label>
+              <p style={{ color: "red" }}>{message}</p>
+              <button type="submit" onClick={(e) => signupDoctor(e)}>
+                Register as a Doctor
+              </button>
+            </form>
+            <br />
+            <button onClick={(e) => sendotp(e)}>
+              Send OTP
+            </button>
+            <label>
+              OTP
+              <input
+                disabled={otp}
+                name="otp"
+                type="password"
+                onChange={(e) => setEnteredotp(e.target.value)}
+              />
+            </label>
+          </TabPanel>
+          <TabPanel value="labregister">
+            {/* Register as a Lab */}
+            <form>
+              <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+              <label>
+                Email
+                <input
+                  name="email"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </label>
+              <label>
+                Laboratory Name
+                <input
+                  name="name"
+                  type="text"
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </label>
+              <label>
+                Phone Number
+                <input
+                  name="phone"
+                  type="text"
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </label>
+              <label>
+                Password
+                <input
+                  name="password"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </label>
+              <p style={{ color: "red" }}>{message}</p>
+              <button type="submit" onClick={(e) => signupLab(e)}>
+                Register as a Lab
+              </button>
+            </form>
+            <br />
+            <button onClick={(e) => sendotp(e)}>
+              Send OTP
+            </button>
+            <label>
+              OTP
+              <input
+                disabled={otp}
+                name="otp"
+                type="password"
+                onChange={(e) => setEnteredotp(e.target.value)}
+              />
+            </label>
+          </TabPanel>
+        </TabsBody>
+      </Tabs>
 
-        <div className="container  h-full pt-5 pb-5 pr-[204px] pl-[204px]">
 
-          <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
-            <div className="w-full">
-              <div
-                className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
 
-                <div className="g-0 lg:flex lg:flex-wrap">
-                  <div className="px-4 md:px-0 lg:w-6/12">
-
-                    <div className="md:mx-6 md:p-12">
-                      {/* <!--Logo--> */}
-                      <div className="text-center">
-                        <img
-                          className="mx-auto w-48 mt-2"
-                          src="../images/mededg_logo2.png"
-                          alt="logo" />
-                        <h4 className="mb-12 mt-3 pb-1 text-xl font-semibold">
-                          Wellcome To <span className="text-green-600 font-serif">MedEdge</span>
-                        </h4>
-                      </div>
-                      <form>
-                        <p class="mb-4">Please login to your account</p>
-                        <div class="relative mb-4" data-te-input-wrapper-init>
-                          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-                          <label className="text-blue-400 ">
-                            Email
-                            <input class=" peer block min-h-[auto] w-full rounded border-2 border-gray-400 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                              name="email"
-                              type="email"
-                              placeholder="Enter your Gmail"
-                              onChange={(e) => setEmail(e.target.value)}
-                            />
-                          </label>
-
-                          <label className="text-blue-400 ">
-                            Password
-                            <input class=" peer block min-h-[auto] w-full rounded border-2 border-gray-400 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                              name="password"
-                              type="password"
-                              placeholder="Enter Password"
-                              onChange={(e) => setPassword(e.target.value)}
-                            />
-                          </label>
-                          <p style={{ color: "red" }}>{message}</p>
-                          <button
-                            class="mb-3 mt-5 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xl font-medium bg-gradient-to-r from-cyan-500 to-blue-500 leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
-                            type="submit" onClick={(e) => signinUser(e)}>
-                            Sign In
-                          </button>
-                        </div>
-
-                        <div class="flex items-center justify-between pb-6">
-                          <p class="mb-0 mr-2">Don't have an account?</p>
-
-                          <button
-                            type="button"
-                            class="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% hover:bg-opacity-10  hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-                            data-te-ripple-init
-                            data-te-ripple-color="light"
-                            onClick={() => signIn()}   >Register
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                  <div
-                    class="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none bg-gradient-to-r from-cyan-400 to-blue-500"
-                  >
-                    <div class="px-4 py-6 text-white md:mx-6 md:p-12">
-                      <h4 class="mb-6 text-xl font-semibold">
-                        content
-                      </h4>
-                      <p class="text-sm">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea commodo consequat.
-                      </p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-      {/* Register as a Patient */}
-      <form>
-        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-        <label>
-          Email
-          <input
-            name="email"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          First Name
-          <input
-            name="firstname"
-            type="text"
-            onChange={(e) => setFirstname(e.target.value)}
-          />
-        </label>
-        <label>
-          Last Name
-          <input
-            name="lastname"
-            type="text"
-            onChange={(e) => setLastname(e.target.value)}
-          />
-        </label>
-        <label>
-          Phone Number
-          <input
-            name="phone"
-            type="text"
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <button disabled={otp} type="submit" onClick={(e) => signupPatient(e)}>
-          Register as a Patient
-        </button>
-        <p style={{ color: "red" }}>{message}</p>
-      </form>
-      <br />
-      <button onClick={(e) => sendotp(e)}>
-        Send OTP
-      </button>
-      <label>
-        OTP
-        <input
-          disabled={otp}
-          name="otp"
-          type="password"
-          onChange={(e) => setEnteredotp(e.target.value)}
-        />
-      </label>
-      {/* Register as a Doctor */}
-      <form>
-        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-        <label>
-          Email
-          <input
-            name="email"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          First Name
-          <input
-            name="firstname"
-            type="text"
-            onChange={(e) => setFirstname(e.target.value)}
-          />
-        </label>
-        <label>
-          Last Name
-          <input
-            name="lastname"
-            type="text"
-            onChange={(e) => setLastname(e.target.value)}
-          />
-        </label>
-        <label>
-          Phone Number
-          <input
-            name="phone"
-            type="text"
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <p style={{ color: "red" }}>{message}</p>
-        <button type="submit" onClick={(e) => signupDoctor(e)}>
-          Register as a Doctor
-        </button>
-      </form>
-      <br />
-      <button onClick={(e) => sendotp(e)}>
-        Send OTP
-      </button>
-      <label>
-        OTP
-        <input
-          disabled={otp}
-          name="otp"
-          type="password"
-          onChange={(e) => setEnteredotp(e.target.value)}
-        />
-      </label>
-      {/* Register as a Lab */}
-      <form>
-        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-        <label>
-          Email
-          <input
-            name="email"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label>
-          Laboratory Name
-          <input
-            name="name"
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <label>
-          Phone Number
-          <input
-            name="phone"
-            type="text"
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <p style={{ color: "red" }}>{message}</p>
-        <button type="submit" onClick={(e) => signupLab(e)}>
-          Register as a Lab
-        </button>
-      </form>
-      <br />
-      <button onClick={(e) => sendotp(e)}>
-        Send OTP
-      </button>
-      <label>
-        OTP
-        <input
-          disabled={otp}
-          name="otp"
-          type="password"
-          onChange={(e) => setEnteredotp(e.target.value)}
-        />
-      </label>
     </>
   );
 }
